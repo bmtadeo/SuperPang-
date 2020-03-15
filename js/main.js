@@ -22,7 +22,6 @@ Promise.all([loadImage('img/sprites.png'),loadLevel('1')])
                 balls[i].draw(context);
                 balls[i].update(deltaTime);
             }
-
             lastTime = time;
             requestAnimationFrame(update);
         }
