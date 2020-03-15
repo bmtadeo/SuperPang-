@@ -25,6 +25,8 @@ export default class Player extends Object2D {
     update(time) {
         if (this.direction.x!=0){
             this.distance += time * Settings.PLAYER_SPEED;
+        }else{
+            this.distance=0;
         }
         /*
         Asume por el momento que Settings.SCREEN_HEIGHT y Settings.SCREEN_WIDTH indican el tamaño de
