@@ -1,6 +1,6 @@
 import {Vec2D} from './math.js';
-import {Object2D} from './Object2D.js';
-import {Settings} from './Settings.js';
+import {Object2D} from './math.js';
+import Settings from "./Settings.js";
 
 class Ball extends Object2D {
 
@@ -35,7 +35,7 @@ class Ball extends Object2D {
     }
 
     draw(ctx) {
-
+       //ctx.drawImage(this,this.x, this.y);
      // Añade el métododrawa la clase Ball para que se pinte a sí misma en el contexto que se le pasa como parámetro
 
     }
