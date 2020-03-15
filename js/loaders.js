@@ -13,10 +13,13 @@ export function loadImage(url){
 }
 export function loadBuster(image){
     const spriteSheet = new SpriteSheet(image, 32, 32);
-    spriteSheet.define('buster', 1, 0);
+    spriteSheet.define('buster', 0, 0);
+    spriteSheet.define('buster-1', 1, 0);
+    spriteSheet.define('buster-2', 2, 0);
+    spriteSheet.define('buster-3', 3, 0);
 
     const pos = new Vec2D(200,300);
     const size = new Vec2D(32,32);
 
-    return new Player(size, pos, spriteSheet.get('buster'));
+    return new Player(size, pos, spriteSheet);
 }

@@ -1,17 +1,31 @@
 import {Object2D, Vec2D} from "./math.js";
 import Settings from "./Settings.js";
 
+const frames = ['buster','buster-1','buster-2','buster-3'];
+
 export default class Player extends Object2D {
 
-    constructor(size, pos, sprite) {
+    routeFrame(){
+        if(this.direction.x!==0){
+            const frameIndex=Math.floor(this.distance/10) % frames.length;
+            const frameName = frames[frameIndex];
+            return frameName;
+        }
+        return 'buster';
+    }
+    constructor(size, pos, spriteSheet) {
         super(size, pos);
         this.force = new Vec2D(0, 0);
-        this.sprite = sprite;
+        this.spriteSheet = spriteSheet;
         this.direction = new Vec2D(0, 0);
+        this.distance =0;
     }
 
     // time respresenta el tiempo que ha pasado desde la última ejecución
     update(time) {
+        if (this.direction.x!=0){
+            this.distance += time * Settings.PLAYER_SPEED;
+        }
         /*
         Asume por el momento que Settings.SCREEN_HEIGHT y Settings.SCREEN_WIDTH indican el tamaño de
         la pantalla del juego. Settings tiene otras constantes definidas (échales un vistazo)
@@ -50,7 +64,7 @@ export default class Player extends Object2D {
     }
 
     draw(context) {
-        context.drawImage(this.sprite, this.x, this.y);
+        context.drawImage(this.spriteSheet.get(this.routeFrame()), this.x, this.y);
         // pintar this.sprite en el contexto (en posicion x,y)
     }
 }
