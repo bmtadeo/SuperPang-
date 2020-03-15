@@ -18,4 +18,8 @@ export default class SpriteSheet{
         const buffer = this.sprites.get(name);
         context.drawImage(buffer, x,y);
     }
+
+    get(name){
+        return this.sprites.get(name);
+    }
 }

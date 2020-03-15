@@ -1,8 +1,11 @@
-import SpriteSheet from "./SpriteSheet.js";
+import Settings from "./Settings.js";
+import {setupKeyboard} from "./input.js";
 import {loadBuster, loadImage} from "./loaders.js";
-
 const canvas = document.getElementById("screen");
 const context = canvas.getContext('2d');
+
+Settings.SCREEN_HEIGHT = canvas.height;
+Settings.SCREEN_WIDTH= canvas.width;
 
 loadImage('img/sprites.png')
     .then(image => {
@@ -17,6 +20,8 @@ loadImage('img/sprites.png')
             lastTime = time;
             requestAnimationFrame(update);
         }
+        const input = setupKeyboard(buster);
+        input.listenTo(window);
 
         update(0);
     });

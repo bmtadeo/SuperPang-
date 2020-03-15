@@ -9,26 +9,53 @@ export class Vec2D {
         return this[prop] || 'MAGIC';
     }
 
-    add(other){
+    add(other) {
         // si other es una instancia de Vec2D
-        // anyadir other a this como vector
-        // si no,
-        // anyadir other a this como escalar
+        if (other instanceof Vec2D) {
+            //this.add(new Vec2D(other.x, other.y));
+            this.x = this.x + other.x;
+            this.y = this.y + other.y;
+            // anyadir other a this como vector
+            // si no,
+        } else {
+            // anyadir other a this como escalar
+            //this.add();
+            this.x =  this.x + other[0];
+            this.y =  this.y + other[1];
+        }
+        return this;
+
         //
         // devolver this
     }
 
-    _mul(other){
+    _mul(other) {
+        return new Vec2D(this.x * other, this.y * other);
         // devolver un nuevo vector igual a
         // this multiplicado por el escalar other
-
     }
 
     equals(other) {
+        if (Vec2D.approx_equal(this, other, 0.1)==true){
+            return true
+        }else{
+            return false
+        }
         // devuelve true si this es aproximadamente igual a other (igual con una diferencia máxima de epsilon=0.1
     }
 
     static approx_equal(a, b, epsilon) {
+        var diferenciaX = a.x -b.x;
+        diferenciaX = Math.abs(diferenciaX);
+        diferenciaX = Math.round(diferenciaX);
+        var diferenciaY = a.y-b.y;
+        diferenciaY = Math.abs(diferenciaY);
+        diferenciaY = Math.round(diferenciaY);
+        if(diferenciaX==epsilon && diferenciaY ==epsilon){
+            return true;
+        }else{
+            return false;
+        }
         // devuelve true si a aprox. igual a b
         // iguales salvo una diferencia absoluta
         // máxima de epsilon
@@ -41,25 +68,24 @@ export class Vec2D {
 
 export class Object2D {
 
-    constructor(size, position){
+    constructor(size, position) {
         this.size = size;
         this.position = position;
     }
 
-    get x(){
+    get x() {
         return this.position.x;
     }
 
-    get y(){
+    get y() {
         return this.position.y;
     }
 
-    get width(){
+    get width() {
         return this.size.x;
     }
 
-    get height(){
+    get height() {
         return this.size.y;
     }
-
 }
