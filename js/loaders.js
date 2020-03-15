@@ -17,7 +17,8 @@ export function loadBuster(image){
     spriteSheet.define('buster-1', 1, 0);
     spriteSheet.define('buster-2', 0, 0);
     spriteSheet.define('buster-3', 2, 0);
-    //BusterAnimation
+
+
     const pos = new Vec2D(200,300);
     const size = new Vec2D(32,32);
 
