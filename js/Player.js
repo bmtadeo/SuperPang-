@@ -2,9 +2,7 @@ import {Object2D, Vec2D} from "./math.js";
 import Settings from "./Settings.js";
 
 const frames = ['buster','buster-1','buster-2','buster-3'];
-
 export default class Player extends Object2D {
-
     routeFrame(){
         if(this.direction.x!==0){
             const frameIndex=Math.floor(this.distance/10) % frames.length;
@@ -13,12 +11,14 @@ export default class Player extends Object2D {
         }
         return 'buster';
     }
+
     constructor(size, pos, spriteSheet) {
         super(size, pos);
         this.force = new Vec2D(0, 0);
         this.spriteSheet = spriteSheet;
         this.direction = new Vec2D(0, 0);
         this.distance =0;
+        this.hooks = null;
     }
 
     // time respresenta el tiempo que ha pasado desde la última ejecución
@@ -69,4 +69,12 @@ export default class Player extends Object2D {
         context.drawImage(this.spriteSheet.get(this.routeFrame()), this.x, this.y);
         // pintar this.sprite en el contexto (en posicion x,y)
     }
+
+    setHookManager(hookManager){
+        this.hooks = hookManager;
+    }
+    shoot() {
+        this.setHookManager(this.x, this.y);
+    }
+
 }

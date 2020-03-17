@@ -20,6 +20,7 @@ export class Vec2D {
         } else {
             // anyadir other a this como escalar
             //this.add();
+            //console.log("error2");
             this.x =  this.x + other[0];
             this.y =  this.y + other[1];
         }
