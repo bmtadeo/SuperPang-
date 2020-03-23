@@ -1,5 +1,5 @@
 import {Vec2D} from "./math.js";
-import {Hook} from "./Hook.js";
+import Settings from "./Settings.js";
 import {Ball} from "./Ball.js";
 
 export class CollisionManager{
@@ -11,12 +11,19 @@ export class CollisionManager{
         var ball = this.balls[0];
         for (var i = 0 ; i<this.hooks.length;i++){
             var pos = ball_to_box(ball, this.hooks[i],true);
-            if (pos){
-                console.log("pang!");
-            }
+        }
+        if (pos){
+            console.log("pang!");
+            this.split_ball(ball, 10);
+        }
+
+    }
+    split_ball(ball, radius) {
+        if (ball.radius > Settings.MIN_BALL_RADIUS) {
+            this.balls.push(new Ball(Math.floor(radius / 2), new Vec2D(ball.x - Math.floor(radius / 2), ball.y), new Vec2D(-50, 0)));
+            this.balls.push(new Ball(Math.floor(radius / 2), new Vec2D(ball.x - Math.floor(radius / 2), ball.y), new Vec2D(-50, 0)));
         }
     }
-
 }
 
 function calc_angle(point){

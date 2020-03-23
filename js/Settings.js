@@ -6,5 +6,6 @@ export default class Settings {
     static PLAYER_SPEED = 50;
     static HOOK_DURATION=50;
     static HOOK_SPEED=50;
+    static MIN_BALL_RADIUS = 5;
 
 }
