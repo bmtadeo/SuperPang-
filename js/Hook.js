@@ -39,6 +39,10 @@ class Hook extends Object2D {
         // si está en expansión y subiendo, incrementar tamaño y posición em increment unidades
         if (this.expand && this.position.y<Settings.SCREEN_HEIGHT) {
             let increment = Settings.HOOK_SPEED * time_passed;
+            this.position.x=this.position.x + increment;
+            this.position.y=this.position.y-increment;
+            this.size.x= this.size.x + increment;
+            this.size.y= this.size.y + increment;
         }
 
         // si sube hasta arriba, marcarlo para eliminar si es de tipo rope....
@@ -51,7 +55,8 @@ class Hook extends Object2D {
                 this.size=0;
                 this.position.y=0;
                 this.position.x=0;
-                this.height = 0;
+                this.size.x = 0;
+                this.size.y= 0;
             }
         }
     }

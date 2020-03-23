@@ -31,7 +31,7 @@ export class Vec2D {
     }
 
     _mul(other) {
-        return new Vec2D(this.x * other, this.y * other);
+        return new Vec2D(this.x * other,this.y * other );
         // devolver un nuevo vector igual a
         // this multiplicado por el escalar other
     }

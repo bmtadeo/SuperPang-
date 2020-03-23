@@ -7,9 +7,11 @@ import {Hook, HookType} from "./Hook.js";
 export function loadLevel(currentLevel){
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
 }
-export function loadHookManager(hookImage, hooks){
-    const hookManager = function(x,y){
-        hooks.add(new Hook(20, new Vec2D(x,y),HookType.rope,hookImage))
+export function loadHookManager(hookRopeImage, hooks){
+    let hookImages = new Map();
+    hookImages.set(HookType.rope,hookRopeImage);
+    const hookManager = function(x,y,hookType){
+        hooks.push(new Hook(y, new Vec2D(x,y),HookType.rope,hookImages.get(hookType)));
         return hooks;
     };
     return hookManager;
@@ -19,7 +21,7 @@ export function loadImage(url){
         const image = new Image();
         image.addEventListener('load', () =>{
             resolve(image);
-        })
+        });
         image.src = url;
     })
 }

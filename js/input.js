@@ -3,7 +3,7 @@ import Keyboard from "./Keyboard.js";
 export function setupKeyboard(buster){
     const input = new Keyboard();
     input.addMapping('Space', (keyState) => {
-        buster.shoot();
+        buster.shoot(buster.x,buster.y);
         console.log("Disparo");
     });
     input.addMapping('ArrowUp', (keyState) => {

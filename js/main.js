@@ -1,6 +1,7 @@
 import Settings from "./Settings.js";
 import {setupKeyboard} from "./input.js";
 import {loadBalls, loadBuster, loadHookManager, loadImage, loadLevel} from "./loaders.js";
+import {CollisionManager} from "./collisions.js";
 const canvas = document.getElementById("screen");
 const context = canvas.getContext('2d');
 
@@ -26,11 +27,13 @@ Promise.all([loadImage('img/hookRope.png'),
             for(var i=0; i<balls.length;i++){
                 balls[i].draw(context);
                 balls[i].update(deltaTime/1000);
-            };
-            for(var j=0; j<hooks.length;i++){
+            }
+            for(var j=0; j<hooks.length;j++){
                 hooks[j].draw(context);
                 hooks[j].update(deltaTime/1000);
             }
+            const collisionManager = new CollisionManager(hooks, balls);
+            collisionManager.checkCollisions();
             lastTime = time;
             requestAnimationFrame(update);
         }

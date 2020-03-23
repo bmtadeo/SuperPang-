@@ -1,5 +1,6 @@
 import {Object2D, Vec2D} from "./math.js";
 import Settings from "./Settings.js";
+import {HookType} from "./Hook.js";
 
 const frames = ['buster','buster-1','buster-2','buster-3'];
 export default class Player extends Object2D {
@@ -18,7 +19,7 @@ export default class Player extends Object2D {
         this.spriteSheet = spriteSheet;
         this.direction = new Vec2D(0, 0);
         this.distance =0;
-        this.hooks = null;
+        this.hookManager = null;
     }
 
     // time respresenta el tiempo que ha pasado desde la última ejecución
@@ -71,10 +72,12 @@ export default class Player extends Object2D {
     }
 
     setHookManager(hookManager){
-        this.hooks = hookManager;
+        this.hookManager = hookManager;
     }
-    shoot() {
-        this.setHookManager(this.x, this.y);
+    shoot(x,y) {
+
+        //console.log(this.hookManager);
+        this.hookManager(x, y,HookType.rope);
     }
 
 }
