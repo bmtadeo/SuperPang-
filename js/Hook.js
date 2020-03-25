@@ -20,7 +20,7 @@ class Hook extends Object2D {
     }
 
     draw(ctx){
-        ctx.drawImage(this.buffer, this.x, this.y);
+        ctx.drawImage(this.buffer, this.position.x, this.position.y);
         // pintar el hook de buffer en la posición x,y de este objeto
 
     }
@@ -45,10 +45,9 @@ class Hook extends Object2D {
 
         // si sube hasta arriba, marcarlo para eliminar si es de tipo rope....
         // o marcarlo para que quede enganchado si es de tipo chain (reset de size 0 y position altura 0)
-        var rope = false;
         if (this.position.y == Settings.SCREEN_HEIGHT){
             if (this.hook_type == HookType.rope){
-                rope = true;
+                this.to_kill = true;
             }else if (this.hook_type == HookType.chain) {
                 this.size=0;
                 this.position.y=0;
