@@ -8,17 +8,21 @@ export class CollisionManager{
         this.balls= balls;
     }
     checkCollisions(){
-        var ball = this.balls[0];
-        for (var i = 0 ; i<this.hooks.length;i++){
-            var pos = ball_to_box(ball, this.hooks[i],true);
-            if(this.hooks[i].to_kill==true){
-                this.hooks[i].pop();
+        if(this.balls.length>0){
+            var ball = this.balls[0];
+            for (var i = 0 ; i<this.hooks.length;i++){
+                var pos = ball_to_box(ball, this.hooks[i],true);
+                if (pos){
+                    console.log("pang!");
+                    this.split_ball(ball, 10);
+                }
+                if(this.hooks[i].to_kill==true){
+                    this.hooks[i].pop();
+                }
             }
+
         }
-        if (pos){
-            console.log("pang!");
-            this.split_ball(ball, 10);
-        }
+
 
 
     }
