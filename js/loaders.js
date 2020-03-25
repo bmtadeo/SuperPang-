@@ -3,6 +3,7 @@ import {Vec2D} from "./math.js";
 import Player from "./Player.js";
 import {Ball} from "./Ball.js";
 import {Hook, HookType} from "./Hook.js";
+import Settings from "./Settings.js";
 
 export function loadLevel(currentLevel){
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
@@ -11,7 +12,9 @@ export function loadHookManager(hookRopeImage, hooks){
     let hookImages = new Map();
     hookImages.set(HookType.rope,hookRopeImage);
     const hookManager = function(x,y,hookType){
-        hooks.push(new Hook(y, new Vec2D(x,y),HookType.rope,hookImages.get(hookType)));
+        if(hooks.length<Settings.MAX_HOOKS) {
+            hooks.push(new Hook(y, new Vec2D(x,y),HookType.rope,hookImages.get(hookType)));
+        }
         return hooks;
     };
     return hookManager;

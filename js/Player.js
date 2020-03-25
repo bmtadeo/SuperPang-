@@ -75,7 +75,6 @@ export default class Player extends Object2D {
         this.hookManager = hookManager;
     }
     shoot(x,y) {
-
         //console.log(this.hookManager);
         this.hookManager(x, y,HookType.rope);
     }

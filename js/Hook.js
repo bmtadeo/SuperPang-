@@ -15,7 +15,7 @@ class Hook extends Object2D {
         this.expand = true;
         this.timer = Settings.HOOK_DURATION;
         this.buffer = buffer;
-
+        this.to_kill=false;
 
     }
 
@@ -30,16 +30,14 @@ class Hook extends Object2D {
         if(!this.expand){
             this.timer= this.timer-time_passed;
         }
-        var to_kill=false;
         // Si el timer es < 0 --> to_kill = true
         if(this.timer<0){
-            to_kill = true;
+            this.to_kill = true;
         }
 
         // si está en expansión y subiendo, incrementar tamaño y posición em increment unidades
-        if (this.expand && this.position.y<Settings.SCREEN_HEIGHT) {
+        if (this.expand && this.position.y<=Settings.SCREEN_HEIGHT) {
             let increment = Settings.HOOK_SPEED * time_passed;
-            this.position.x=this.position.x + increment;
             this.position.y=this.position.y-increment;
             this.size.x= this.size.x + increment;
             this.size.y= this.size.y + increment;
