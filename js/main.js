@@ -14,7 +14,6 @@ Promise.all([loadImage('img/backgrounds.png'),
     loadLevel('1')])
     .then(([backgrounds,hookImage,playerImage, levelSpec])=>{
         const drawBackground = loadBackground(backgrounds);
-        console.log(drawBackground);
         const hooks = [];
         const hookManager = loadHookManager(hookImage, hooks);
         const buster = loadBuster(playerImage, levelSpec.player);

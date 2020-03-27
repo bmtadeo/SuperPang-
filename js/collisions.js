@@ -8,26 +8,37 @@ export class CollisionManager{
         this.balls= balls;
     }
     checkCollisions(){
-        if(this.balls.length>0){
-            var ball = this.balls[0];
-            for (var i = 0 ; i<this.hooks.length;i++){
-                var pos = ball_to_box(ball, this.hooks[i],true);
-                if (pos){
+        /*
+        for (var j = 0; j < this.hooks.length; j++) {
+            if(this.balls[0]!=null){
+                if (ball_to_box(this.balls[0], this.hooks[j], false)) {
                     console.log("pang!");
-                    this.split_ball(ball, 10);
-                }
-                if(this.hooks[i].to_kill==true){
-                    this.hooks[i].pop();
+                    this.split_ball(this.balls[0], 10);
+
                 }
             }
-
+            if(this.balls[1]!=null){
+                if (ball_to_box(this.balls[1], this.hooks[j], false)) {
+                    console.log("pang!");
+                    this.split_ball(this.balls[1], 10);
+                }
+            }
+            if (this.hooks[j].to_kill == true) {
+                this.hooks[j].pop();
+            }
         }
+         */
+
+
 
 //
 
     }
     split_ball(ball, radius) {
-        this.balls.pop();
+        const index = this.balls.indexOf(ball);
+        if (index > -1) {
+            this.balls.splice(index, 1);
+        }
         if (ball.radius > Settings.MIN_BALL_RADIUS) {
             this.balls.push(new Ball(Math.floor(radius / 2), new Vec2D(ball.x - Math.floor(radius / 2), ball.y), new Vec2D(-50, 0)));
             this.balls.push(new Ball(Math.floor(radius / 2), new Vec2D(ball.x + Math.floor(radius / 2), ball.y), new Vec2D(50, 0)));

@@ -2,7 +2,7 @@ import {Object2D, Vec2D} from "./math.js";
 import Settings from "./Settings.js";
 import {HookType} from "./Hook.js";
 
-const frames = ['buster','buster-1','buster-2','buster-3'];
+const frames = ['idle','buster','buster-1','buster-2','buster-3'];
 export default class Player extends Object2D {
     routeFrame(){
         if(this.direction.x!==0){
@@ -10,7 +10,7 @@ export default class Player extends Object2D {
             const frameName = frames[frameIndex];
             return frameName;
         }
-        return 'buster';
+        return 'idle';
     }
 
     constructor(size, pos, spriteSheet) {
@@ -67,7 +67,7 @@ export default class Player extends Object2D {
     }
 
     draw(context) {
-        context.drawImage(this.spriteSheet.get(this.routeFrame()), this.x, this.y);
+        context.drawImage(this.spriteSheet.get(this.routeFrame()), this.x, this.y -Settings.MARGIN);
         // pintar this.sprite en el contexto (en posicion x,y)
     }
 

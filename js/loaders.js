@@ -47,6 +47,7 @@ export function loadBackground(backgrounds) {
 }
 export function loadBuster(image, playerSpec){
     const spriteSheet = new SpriteSheet(image, 32, 32);
+    spriteSheet.define('idle', 0, 1);
     spriteSheet.define('buster', 3, 0);
     spriteSheet.define('buster-1', 1, 0);
     spriteSheet.define('buster-2', 0, 0);

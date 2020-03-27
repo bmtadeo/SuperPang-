@@ -36,22 +36,23 @@ class Hook extends Object2D {
         }
 
         // si está en expansión y subiendo, incrementar tamaño y posición em increment unidades
-        if (this.expand && this.position.y<=Settings.SCREEN_HEIGHT) {
+        if (this.expand) {
             let increment = Settings.HOOK_SPEED * time_passed;
             this.position.y=this.position.y-increment;
-            this.size.x= this.size.x + increment;
-            this.size.y= this.size.y + increment;
+            if(this.position.y>Settings.SCREEN_HEIGHT){
+                this.position.y=Settings.HOOK_SPEED;
+            }
+
         }
 
         // si sube hasta arriba, marcarlo para eliminar si es de tipo rope....
         // o marcarlo para que quede enganchado si es de tipo chain (reset de size 0 y position altura 0)
-        if (this.position.y == Settings.SCREEN_HEIGHT){
-            if (this.hook_type == HookType.rope){
+        if (this.position.y < 0){
+            if (this.hook_type === HookType.rope){
                 this.to_kill = true;
-            }else if (this.hook_type == HookType.chain) {
-                this.size=0;
-                this.position.y=0;
-                this.position.x=0;
+                this.expand=false;
+            }else if (this.hook_type === HookType.chain) {
+                this.expand=false;
                 this.size.x = 0;
                 this.size.y= 0;
             }
