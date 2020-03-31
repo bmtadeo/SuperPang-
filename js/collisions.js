@@ -27,6 +27,7 @@ export class CollisionManager{
                 if (ball_to_box(this.balls[1], this.hooks[j], false)) {
                     console.log("pang!");
                     this.split_ball(this.balls[1], 10);
+
                     const index = this.hooks.indexOf(this.hooks[j]);
                     if (index > -1) {
                         this.hooks.splice(index, 1);
@@ -37,12 +38,13 @@ export class CollisionManager{
                     }
                 }
             }
+            if (this.hooks[j].to_kill==true){
+                const index = this.hooks.indexOf(this.hooks[j]);
+                if (index > -1) {
+                    this.hooks.splice(index, 1);
+                }
+            }
         }
-
-
-
-
-//
 
     }
     split_ball(ball, radius) {
