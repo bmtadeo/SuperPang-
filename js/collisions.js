@@ -45,7 +45,6 @@ export class CollisionManager{
                 }
             }
         }
-
     }
     split_ball(ball, radius) {
         if (ball.radius > Settings.MIN_BALL_RADIUS) {
