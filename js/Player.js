@@ -67,7 +67,7 @@ export default class Player extends Object2D {
     }
 
     draw(context) {
-        context.drawImage(this.spriteSheet.get(this.routeFrame()), this.x, this.y -Settings.MARGIN);
+        context.drawImage(this.spriteSheet.get(this.routeFrame(), this.direction.x), this.x, this.y - Settings.MARGIN);
         // pintar this.sprite en el contexto (en posicion x,y)
     }
 

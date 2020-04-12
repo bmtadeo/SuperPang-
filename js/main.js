@@ -14,7 +14,7 @@ Promise.all([loadImage('img/backgrounds.png'),
     loadLevel('1')])
     .then(([backgrounds,hookImage,playerImage, levelSpec])=>{
         const drawBackground = loadBackground(backgrounds);
-        const hooks = [];
+        const hooks = new Set();
         const hookManager = loadHookManager(hookImage, hooks);
         const buster = loadBuster(playerImage, levelSpec.player);
         buster.setHookManager(hookManager);
@@ -27,14 +27,14 @@ Promise.all([loadImage('img/backgrounds.png'),
             //context.clearRect(0, 0, canvas.width, canvas.height);
             buster.draw(context);
             buster.update(deltaTime/1000);
-            for(var i=0; i<balls.length;i++){
-                balls[i].draw(context);
-                balls[i].update(deltaTime/1000);
-            }
-            for(var j=0; j<hooks.length;j++){
-                hooks[j].draw(context);
-                hooks[j].update(deltaTime/1000);
-            }
+            balls.forEach(bola=>{
+                bola.draw(context);
+                bola.update(deltaTime/1000);
+            });
+            hooks.forEach(hook=>{
+                hook.draw(context);
+                hook.update(deltaTime/1000);
+            });
             const collisionManager = new CollisionManager(hooks, balls);
             collisionManager.checkCollisions();
             lastTime = time;
@@ -42,6 +42,5 @@ Promise.all([loadImage('img/backgrounds.png'),
         }
         const input = setupKeyboard(buster);
         input.listenTo(window);
-
         update(0);
     });

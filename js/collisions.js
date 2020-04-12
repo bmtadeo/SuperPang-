@@ -3,53 +3,38 @@ import Settings from "./Settings.js";
 import {Ball} from "./Ball.js";
 
 export class CollisionManager{
-    constructor(hooks, balls){
+    constructor(hooks, balls,ballFactory){
         this.hooks= hooks;
         this.balls= balls;
+        this.ballFactory=ballFactory;
+    }
+    check_Collisions(ball,hook){
+        this.split_ball(ball,10);
+        this.balls.delete(ball);
+        console.log("pang!");
+        this.hooks.delete(hook);
     }
     checkCollisions(){
-        for (var j = 0; j < this.hooks.length; j++) {
-            if(this.balls[0]!=null){
-                if (ball_to_box(this.balls[0], this.hooks[j], false)) {
-                    console.log("pang!");
-                    this.split_ball(this.balls[0], 10);
-                    const index = this.hooks.indexOf(this.hooks[j]);
-                    if (index > -1) {
-                        this.hooks.splice(index, 1);
-                    }
-                    const index2 = this.balls.indexOf(this.balls[0]);
-                    if (index2 > -1) {
-                        this.balls.splice(index, 1);
-                    }
-                }
+        let collisions = false;
+        this.hooks.forEach(hook=>{
+            if(hook.to_kill){
+                this.hooks.delete(hook);
             }
-            if(this.balls[1]!=null){
-                if (ball_to_box(this.balls[1], this.hooks[j], false)) {
-                    console.log("pang!");
-                    this.split_ball(this.balls[1], 10);
+            this.balls.forEach(ball=>{
+                let pos = ball_to_box(ball,hook,false);
+                if(pos!=null){
+                    this.check_Collisions(ball,hook);
+                    collisions=true;
+                }
+            })
+        });
+        return collisions;
 
-                    const index = this.hooks.indexOf(this.hooks[j]);
-                    if (index > -1) {
-                        this.hooks.splice(index, 1);
-                    }
-                    const index2 = this.balls.indexOf(this.balls[1]);
-                    if (index2 > -1) {
-                        this.balls.splice(index, 1);
-                    }
-                }
-            }
-            if (this.hooks[j].to_kill==true){
-                const index = this.hooks.indexOf(this.hooks[j]);
-                if (index > -1) {
-                    this.hooks.splice(index, 1);
-                }
-            }
-        }
     }
     split_ball(ball, radius) {
         if (ball.radius > Settings.MIN_BALL_RADIUS) {
-            this.balls.push(new Ball(Math.floor(radius / 2), new Vec2D(ball.x - Math.floor(radius / 2), ball.y), new Vec2D(-50, 0)));
-            this.balls.push(new Ball(Math.floor(radius / 2), new Vec2D(ball.x + Math.floor(radius / 2), ball.y), new Vec2D(50, 0)));
+            this.balls.add(new Ball(Math.floor(radius / 2), new Vec2D(ball.x - Math.floor(radius / 2), ball.y), new Vec2D(-50, 0)));
+            this.balls.add(new Ball(Math.floor(radius / 2), new Vec2D(ball.x + Math.floor(radius / 2), ball.y), new Vec2D(50, 0)));
         }
 
     }

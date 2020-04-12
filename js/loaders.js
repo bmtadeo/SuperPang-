@@ -12,8 +12,8 @@ export function loadHookManager(hookRopeImage, hooks){
     let hookImages = new Map();
     hookImages.set(HookType.rope,hookRopeImage);
     const hookManager = function(x,y,hookType){
-        if(hooks.length<Settings.MAX_HOOKS) {
-            hooks.push(new Hook(y, new Vec2D(x,y),HookType.rope,hookImages.get(hookType)));
+        if(hooks.size<Settings.MAX_HOOKS) {
+            hooks.add(new Hook(y, new Vec2D(x,y),HookType.rope,hookImages.get(hookType)));
         }
         return hooks;
     };
@@ -61,9 +61,9 @@ export function loadBuster(image, playerSpec){
 }
 
 export function loadBalls(ballSpec){
-    var bolas= [];
+    var bolas= new Set();
     for(var i=0; i<ballSpec.length; i++){
-        bolas.push(new Ball(ballSpec[i].radius, new Vec2D(ballSpec[i].pos[0],ballSpec[i].pos[1]), new Vec2D(ballSpec[i].force[0],ballSpec[i].force[1])));
+        bolas.add(new Ball(ballSpec[i].radius, new Vec2D(ballSpec[i].pos[0],ballSpec[i].pos[1]), new Vec2D(ballSpec[i].force[0],ballSpec[i].force[1])));
     }
     return bolas;
 }
