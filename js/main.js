@@ -10,12 +10,13 @@ Settings.SCREEN_WIDTH= canvas.width;
 
 Promise.all([loadImage('img/backgrounds.png'),
     loadImage('img/hookRope.png'),
+    loadImage('img/hookChain.png'),
     loadImage('img/sprites.png'),
     loadLevel('1')])
-    .then(([backgrounds,hookImage,playerImage, levelSpec])=>{
+    .then(([backgrounds,hookRopeImage,hookChainImage,playerImage, levelSpec])=>{
         const drawBackground = loadBackground(backgrounds);
         const hooks = new Set();
-        const hookManager = loadHookManager(hookImage, hooks);
+        const hookManager = loadHookManager(hookRopeImage, hookChainImage, hooks);
         const buster = loadBuster(playerImage, levelSpec.player);
         buster.setHookManager(hookManager);
         const balls = loadBalls(levelSpec.balls);
@@ -35,8 +36,9 @@ Promise.all([loadImage('img/backgrounds.png'),
                 hook.draw(context);
                 hook.update(deltaTime/1000);
             });
-            const collisionManager = new CollisionManager(hooks, balls);
+            const collisionManager = new CollisionManager(hooks, balls,buster);
             collisionManager.checkCollisions();
+            collisionManager.mataBuster();
             lastTime = time;
             requestAnimationFrame(update);
         }

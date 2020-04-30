@@ -3,10 +3,10 @@ import Settings from "./Settings.js";
 import {Ball} from "./Ball.js";
 
 export class CollisionManager{
-    constructor(hooks, balls,ballFactory){
+    constructor(hooks, balls,player){
         this.hooks= hooks;
         this.balls= balls;
-        this.ballFactory=ballFactory;
+        this.player=player;
     }
     check_Collisions(ball,hook){
         this.split_ball(ball,10);
@@ -25,8 +25,13 @@ export class CollisionManager{
                 if(pos!=null){
                     this.check_Collisions(ball,hook);
                     collisions=true;
+                    var sound = new Howl({
+                        src: ['./audio/obstacle_pop.mp3' ]
+                    }).play();
+
                 }
-            })
+            });
+
         });
         return collisions;
 
@@ -37,6 +42,15 @@ export class CollisionManager{
             this.balls.add(new Ball(Math.floor(radius / 2), new Vec2D(ball.x + Math.floor(radius / 2), ball.y), new Vec2D(50, 0)));
         }
 
+    }
+
+    mataBuster() {
+        this.balls.forEach(ball=>{
+            let choca = ball_to_box(ball,this.player, false);
+            if(choca!=null){
+                console.log("Game Over :(");
+            }
+        })
     }
 }
 

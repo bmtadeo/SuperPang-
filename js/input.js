@@ -6,6 +6,9 @@ export function setupKeyboard(buster){
         if(keyState){
             buster.shoot(buster.x,buster.y);
         }
+        var sound = new Howl({
+            src: ['./audio/shoot.mp3' ]
+        }).play();
 
         console.log("Disparo");
     });

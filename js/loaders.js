@@ -8,12 +8,13 @@ import Settings from "./Settings.js";
 export function loadLevel(currentLevel){
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
 }
-export function loadHookManager(hookRopeImage, hooks){
+export function loadHookManager(hookRopeImage,hookChainImage, hooks){
     let hookImages = new Map();
     hookImages.set(HookType.rope,hookRopeImage);
+    hookImages.set(HookType.chain,hookChainImage);
     const hookManager = function(x,y,hookType){
         if(hooks.size<Settings.MAX_HOOKS) {
-            hooks.add(new Hook(y, new Vec2D(x,y),HookType.rope,hookImages.get(hookType)));
+            hooks.add(new Hook(y, new Vec2D(x,y),hookType,hookImages.get(hookType)));
         }
         return hooks;
     };
