@@ -5,6 +5,9 @@ import {Ball} from "./Ball.js";
 import {Hook, HookType} from "./Hook.js";
 import Settings from "./Settings.js";
 
+export const soundTrack = new Howl({
+    src: ['./audio/soundtrack.mp3' ]
+});
 export function loadLevel(currentLevel){
     return fetch(`levels/${currentLevel}.json`).then(r => r.json());
 }
@@ -57,7 +60,7 @@ export function loadBuster(image, playerSpec){
 
     const pos = new Vec2D(playerSpec.pos[0],playerSpec.pos[1]);
     const size = new Vec2D(32,32);
-
+    soundTrack.play();
     return new Player(size, pos, spriteSheet);
 }
 

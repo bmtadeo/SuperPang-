@@ -1,6 +1,15 @@
 import {Vec2D} from "./math.js";
 import Settings from "./Settings.js";
 import {Ball} from "./Ball.js";
+import {soundTrack} from './loaders.js';
+const canvas = document.getElementById('screen');
+const context = canvas.getContext('2d');
+const obstSound = new Howl({
+    src: ['./audio/obstacle_pop.mp3' ]
+});
+const gameOverSound = new Howl({
+    src: ['./audio/gameover.mp3' ]
+});
 
 export class CollisionManager{
     constructor(hooks, balls,player){
@@ -25,10 +34,7 @@ export class CollisionManager{
                 if(pos!=null){
                     this.check_Collisions(ball,hook);
                     collisions=true;
-                    var sound = new Howl({
-                        src: ['./audio/obstacle_pop.mp3' ]
-                    }).play();
-
+                    obstSound.play();
                 }
             });
 
@@ -48,7 +54,11 @@ export class CollisionManager{
         this.balls.forEach(ball=>{
             let choca = ball_to_box(ball,this.player, false);
             if(choca!=null){
-                console.log("Game Over :(");
+                console.log("Game Over");
+                context.font = '50px serif';
+                context.fillText('Game Over :(', 100, 150);
+                soundTrack.pause();
+                gameOverSound.play();
             }
         })
     }

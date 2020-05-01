@@ -7,7 +7,7 @@ export default class Settings {
     static HOOK_DURATION=5;
     static HOOK_SPEED=300;
     static MIN_BALL_RADIUS = 5;
-    static MAX_HOOKS =5;
+    static MAX_HOOKS =4;
     static MARGIN =12;
 
 }
